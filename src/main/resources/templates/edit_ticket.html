@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="ISO-8859-1">
+	<title>Ticket Tracker Application</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+		integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+
+<body>
+	<nav class="navbar navbar-expand-md bg-dark navbar-dark">
+		<!-- Brand -->
+		<a class="navbar-brand" href="#">Ticket Tracker Application</a>
+
+		<!-- Toggler/collapsibe Button -->
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+
+		<!-- Navbar links -->
+		<div class="collapse navbar-collapse" id="collapsibleNavbar">
+			<ul class="navbar-nav">
+				<li class="nav-item">
+					<a class="nav-link" th:href="@{/tickets}">Ticket Tracker</a>
+				</li>
+			</ul>
+		</div>
+	</nav>
+	<br>
+	<br>
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
+				<h1 class="text-center"> Edit Ticket </h1>
+				<div class="card-body">
+					<form th:action="@{/tickets/{id} (id=${ticket.id})}" th:object="${ticket}" method="POST">
+						<div class="form-group">
+							<label for="ticketTitle">Title</label>
+							<input type="text" id="ticketTitle" th:field="*{ticketTitle}" class="form-control"
+								placeholder="Enter ticket title" />
+							<div class="alert alert-warning" th:if="${#fields.hasErrors('ticketTitle')}"
+								th:errors="*{ticketTitle}"></div>
+						</div>
+
+						<div class="form-group">
+							<label for="ticketShortDescription"> Short Description </label>
+							<textarea type="text" id="ticketShortDescription" rows="4"
+								th:field="*{ticketShortDescription}" class="form-control"
+								placeholder="Enter ticket description"> </textarea>
+							<div class="alert alert-warning" th:if="${#fields.hasErrors('ticketShortDescription')}"
+								th:errors="*{ticketShortDescription}"></div>
+						</div>
+
+						<div class="form-group">
+							<label for="content">Content</label>
+							<textarea type="text" rows="4" th:field="*{content}" class="form-control" id="content"
+								placeholder="Enter content"> </textarea>
+							<div class="alert alert-warning" th:if="${#fields.hasErrors('content')}"
+								th:errors="*{content}"></div>
+						</div>
+
+						<div class="box-footer">
+							<button type="submit" class="btn btn-primary">
+								Submit
+							</button>
+						</div>
+					</form>
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script src="https://code.jquery.com/jquery-3.6.3.min.js"
+		integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+	<script src="https://cdn.ckeditor.com/ckeditor5/35.4.0/classic/ckeditor.js"></script>
+	<script>
+		ClassicEditor
+			.create(document.querySelector('#content'))
+			.then(editor => {
+				console.log(editor);
+			})
+			.catch(error => {
+				console.error(error);
+			});
+	</script>
+</body>
+
+</html>
